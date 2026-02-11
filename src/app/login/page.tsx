@@ -32,19 +32,21 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  // 2. Google 第三方登入
+  // 2. Google 第三方登入 (暫時關閉)
+  /*
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
   };
+  */
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#FAF9F6] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md border-none shadow-sm shadow-black/5">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl font-bold tracking-tight text-[#2D2926]">
+          <CardTitle className="text-2xl font-bold tracking-tight text-foreground">
             Nihongo AI Tutor
           </CardTitle>
           <CardDescription>歡迎回來，今天也要一起練習日文嗎？</CardDescription>
@@ -71,13 +73,14 @@ export default function LoginPage() {
             </div>
             <Button
               type="submit"
-              className="w-full bg-[#D05D6E] hover:bg-[#D05D6E]/90 text-white"
+              className="w-full bg-primary hover:bg-primary/90 text-white"
               disabled={loading}
             >
               {loading ? "登入中..." : "帳密登入"}
             </Button>
           </form>
 
+          {/* 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
@@ -96,10 +99,11 @@ export default function LoginPage() {
           >
             使用 Google 帳號登入
           </Button>
+          */}
         </CardContent>
         <CardFooter className="flex flex-wrap items-center justify-center gap-1 text-sm text-muted-foreground">
           還沒有帳號嗎？{" "}
-          <a href="/signup" className="text-[#D05D6E] hover:underline">
+          <a href="/signup" className="text-primary hover:underline">
             立即註冊
           </a>
         </CardFooter>
