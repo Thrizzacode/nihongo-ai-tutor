@@ -116,9 +116,9 @@ function HeroSection() {
             >
               🚀 開始免費學習
             </Link>
-            <button className="btn-secondary-landing inline-flex items-center justify-center gap-2 rounded-2xl border-[1.5px] border-border bg-transparent px-8 py-4 text-base font-medium text-foreground">
+            {/* <button className="btn-secondary-landing inline-flex items-center justify-center gap-2 rounded-2xl border-[1.5px] border-border bg-transparent px-8 py-4 text-base font-medium text-foreground">
               ▶ 觀看介紹
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -211,9 +211,7 @@ function FeaturesSection() {
                 {f.icon}
               </div>
               <h3 className="mb-2.5 text-lg font-semibold">{f.title}</h3>
-              <p className="text-sm leading-relaxed text-text-secondary">
-                {f.desc}
-              </p>
+              <p className="text-sm leading-relaxed text-text-secondary">{f.desc}</p>
               <span
                 className={`mt-4 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${f.tagClass}`}
               >
@@ -266,10 +264,7 @@ function HowItWorksSection() {
         {/* Steps */}
         <div className="steps-container grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-10">
           {STEPS.map((s) => (
-            <div
-              key={s.title}
-              className="step-item fade-in relative z-[1] text-center"
-            >
+            <div key={s.title} className="step-item fade-in relative z-[1] text-center">
               <div className="step-number mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-border bg-card text-[2rem]">
                 {s.icon}
               </div>
@@ -339,9 +334,7 @@ function DemoPreviewSection() {
                   {f.icon}
                 </div>
                 <div>
-                  <h4 className="mb-1 text-[0.95rem] font-semibold">
-                    {f.title}
-                  </h4>
+                  <h4 className="mb-1 text-[0.95rem] font-semibold">{f.title}</h4>
                   <p className="text-sm text-text-secondary">{f.desc}</p>
                 </div>
               </div>
@@ -379,16 +372,12 @@ function DemoPreviewSection() {
 
             {/* Sidebar */}
             <div className="rounded-xl bg-card p-4">
-              <p className="mb-3 text-xs font-semibold text-text-muted">
-                📋 即時糾錯
-              </p>
+              <p className="mb-3 text-xs font-semibold text-text-muted">📋 即時糾錯</p>
               <div className="mb-2 rounded-lg bg-background p-2.5 text-xs">
                 <span className="text-primary line-through">が食べる</span> →{" "}
                 <span className="font-semibold text-matsu">を食べる</span>
                 <br />
-                <span className="text-[0.7rem] text-text-muted">
-                  助詞：動作對象用「を」
-                </span>
+                <span className="text-[0.7rem] text-text-muted">助詞：動作對象用「を」</span>
               </div>
               <div className="rounded-lg bg-background p-2.5 text-xs">
                 <strong className="text-[0.7rem]">📝 新單字</strong>
@@ -435,10 +424,7 @@ export default function Home() {
   const pageRef = useScrollFadeIn();
 
   return (
-    <div
-      ref={pageRef}
-      className="min-h-screen bg-background font-[var(--font-jp)] antialiased"
-    >
+    <div ref={pageRef} className="min-h-screen bg-background font-[var(--font-jp)] antialiased">
       <Navbar />
       <HeroSection />
       <FeaturesSection />

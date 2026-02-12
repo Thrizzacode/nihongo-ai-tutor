@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md border-none shadow-sm shadow-black/5">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold tracking-tight text-foreground">
-            Nihongo AI Tutor
+            <Link href="/">Nihongo AI Tutor</Link>
           </CardTitle>
           <CardDescription>歡迎回來，今天也要一起練習日文嗎？</CardDescription>
         </CardHeader>
