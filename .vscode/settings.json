@@ -7,8 +7,9 @@
   "tailwindCSS.lint.invalidTailwindDirective": "error",
   "tailwindCSS.lint.invalidVariant": "error",
   "tailwindCSS.lint.unusedClass": "ignore",
+  "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
   "tailwindCSS.experimental.classRegex": [],
-  "tailwindCSS.suggestions": false,
+  "tailwindCSS.suggestions": true,
 
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,

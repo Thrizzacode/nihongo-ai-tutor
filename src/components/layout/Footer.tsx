@@ -14,20 +14,11 @@ export default function Footer() {
     <footer className="border-t border-border bg-background py-[60px]">
       <div className="mx-auto flex max-w-[1120px] flex-col items-center gap-5 px-6 text-center md:flex-row md:justify-between md:text-left">
         <div className="flex items-center gap-2.5 font-semibold">
-          <Image
-            src={logo}
-            alt="Nihongo AI Logo"
-            width={40}
-            height={40}
-            quality={100}
-          />
+          <Image src={logo} alt="Nihongo AI Logo" width={40} height={40} />
           <span>Nihongo AI Tutor</span>
         </div>
 
-        <ul
-          className="flex flex-wrap justify-center gap-7"
-          style={{ listStyle: "none" }}
-        >
+        <ul className="flex flex-wrap justify-center gap-7" style={{ listStyle: "none" }}>
           {FOOTER_LINKS.map((link) => (
             <li key={link.label}>
               <Link
@@ -40,9 +31,7 @@ export default function Footer() {
           ))}
         </ul>
 
-        <p className="text-sm text-text-muted">
-          © 2026 Nihongo AI Tutor. All rights reserved.
-        </p>
+        <p className="text-sm text-text-muted">© 2026 Nihongo AI Tutor. All rights reserved.</p>
       </div>
     </footer>
   );
