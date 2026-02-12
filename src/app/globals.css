@@ -9,6 +9,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-jp: 'Noto Sans JP', sans-serif;
+  --font-jp-serif: 'Shippori Mincho', serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +41,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  /* Extended palette for landing page */
+  --color-sakura-light: #F5E6E8;
+  --color-sakura-hover: #B8455A;
+  --color-matsu: #2D5A27;
+  --color-matsu-light: #E8F0E7;
+  --color-text-secondary: #6B6560;
+  --color-text-muted: #9E9893;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
