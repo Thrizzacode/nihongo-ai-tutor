@@ -22,7 +22,8 @@ export default async function SignUpPage({
       <Card className="w-full max-w-md border-none shadow-sm shadow-black/5">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold tracking-tight text-foreground">
-            加入 Nihongo AI Tutor
+            加入
+            <Link href="/">Nihongo AI Tutor</Link>
           </CardTitle>
           <CardDescription>建立帳號，開始你的日語學習之旅</CardDescription>
         </CardHeader>
