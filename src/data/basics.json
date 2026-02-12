@@ -1,0 +1,587 @@
+{
+  "numbers": [
+    {
+      "groupName": "基礎數字 (0-10)",
+      "items": [
+        { "kanji": "零", "kana": "れい / ぜろ", "romaji": "rei / zero", "meaning": "0" },
+        { "kanji": "一", "kana": "いち", "romaji": "ichi", "meaning": "1" },
+        { "kanji": "二", "kana": "に", "romaji": "ni", "meaning": "2" },
+        { "kanji": "三", "kana": "さん", "romaji": "san", "meaning": "3" },
+        { "kanji": "四", "kana": "よん / し", "romaji": "yon / shi", "meaning": "4" },
+        { "kanji": "五", "kana": "ご", "romaji": "go", "meaning": "5" },
+        { "kanji": "六", "kana": "ろく", "romaji": "roku", "meaning": "6" },
+        { "kanji": "七", "kana": "なな / しち", "romaji": "nana / shichi", "meaning": "7" },
+        { "kanji": "八", "kana": "はち", "romaji": "hachi", "meaning": "8" },
+        { "kanji": "九", "kana": "きゅう / く", "romaji": "kyuu / ku", "meaning": "9" },
+        { "kanji": "十", "kana": "じゅう", "romaji": "juu", "meaning": "10" }
+      ]
+    },
+    {
+      "groupName": "百位數 (Hundreds)",
+      "items": [
+        { "kanji": "百", "kana": "ひゃく", "romaji": "hyaku", "meaning": "100" },
+        {
+          "kanji": "三百",
+          "kana": "さんびゃく",
+          "romaji": "sanbyaku",
+          "meaning": "300",
+          "special": true
+        },
+        {
+          "kanji": "六百",
+          "kana": "ろっぴゃく",
+          "romaji": "roppyaku",
+          "meaning": "600",
+          "special": true
+        },
+        {
+          "kanji": "八百",
+          "kana": "はっぴゃく",
+          "romaji": "happyaku",
+          "meaning": "800",
+          "special": true
+        }
+      ]
+    },
+    {
+      "groupName": "千位數 (Thousands)",
+      "items": [
+        { "kanji": "千", "kana": "せん", "romaji": "sen", "meaning": "1,000" },
+        {
+          "kanji": "三千",
+          "kana": "さんぜん",
+          "romaji": "sanzen",
+          "meaning": "3,000",
+          "special": true
+        },
+        {
+          "kanji": "八千",
+          "kana": "はっせん",
+          "romaji": "hassen",
+          "meaning": "8,000",
+          "special": true
+        }
+      ]
+    },
+    {
+      "groupName": "大數位 (Large Numbers)",
+      "items": [
+        { "kanji": "万", "kana": "いちまん", "romaji": "ichiman", "meaning": "10,000" },
+        { "kanji": "十万", "kana": "じゅうまん", "romaji": "juuman", "meaning": "100,000" },
+        {
+          "kanji": "百万",
+          "kana": "ひゃくまん",
+          "romaji": "hyakuman",
+          "meaning": "1,000,000 (100萬)"
+        },
+        {
+          "kanji": "千万",
+          "kana": "せんまん",
+          "romaji": "senman",
+          "meaning": "10,000,000 (1000萬)"
+        },
+        { "kanji": "億", "kana": "いちおく", "romaji": "ichioku", "meaning": "100,000,000 (1億)" }
+      ]
+    }
+  ],
+  "weekdays": [
+    { "kanji": "月曜日", "kana": "げつようび", "romaji": "getsuyoubi", "meaning": "星期一" },
+    { "kanji": "火曜日", "kana": "かようび", "romaji": "kayoubi", "meaning": "星期二" },
+    { "kanji": "水曜日", "kana": "すいようび", "romaji": "suiyoubi", "meaning": "星期三" },
+    { "kanji": "木曜日", "kana": "もくようび", "romaji": "mokuyoubi", "meaning": "星期四" },
+    { "kanji": "金曜日", "kana": "きんようび", "romaji": "kinyoubi", "meaning": "星期五" },
+    { "kanji": "土曜日", "kana": "どようび", "romaji": "doyoubi", "meaning": "星期六" },
+    { "kanji": "日曜日", "kana": "にちようび", "romaji": "nichiyoubi", "meaning": "星期日" }
+  ],
+  "time": [
+    {
+      "groupName": "小時 (Hours - 時)",
+      "items": [
+        { "kanji": "一時", "kana": "いちじ", "romaji": "ichiji", "meaning": "1:00" },
+        { "kanji": "二時", "kana": "にじ", "romaji": "niji", "meaning": "2:00" },
+        { "kanji": "三時", "kana": "さんじ", "romaji": "sanji", "meaning": "3:00" },
+        { "kanji": "四時", "kana": "よじ", "romaji": "yoji", "meaning": "4:00", "special": true },
+        { "kanji": "五時", "kana": "ごじ", "romaji": "goji", "meaning": "5:00" },
+        { "kanji": "六時", "kana": "ろくじ", "romaji": "rokuji", "meaning": "6:00" },
+        {
+          "kanji": "七時",
+          "kana": "しちじ",
+          "romaji": "shichiji",
+          "meaning": "7:00",
+          "special": true
+        },
+        { "kanji": "八時", "kana": "はちじ", "romaji": "hachiji", "meaning": "8:00" },
+        { "kanji": "九時", "kana": "くじ", "romaji": "kuji", "meaning": "9:00", "special": true },
+        { "kanji": "十時", "kana": "じゅうじ", "romaji": "juuji", "meaning": "10:00" },
+        { "kanji": "十一時", "kana": "じゅういちじ", "romaji": "juuichiji", "meaning": "11:00" },
+        { "kanji": "十二時", "kana": "じゅうにじ", "romaji": "juuniji", "meaning": "12:00" }
+      ]
+    },
+    {
+      "groupName": "分鐘 (Minutes - 分)",
+      "items": [
+        {
+          "kanji": "一分",
+          "kana": "いっぷん",
+          "romaji": "ippun",
+          "meaning": "1分",
+          "special": true
+        },
+        { "kanji": "二分", "kana": "にふん", "romaji": "nifun", "meaning": "2分" },
+        {
+          "kanji": "三分",
+          "kana": "さんぷん",
+          "romaji": "sanpun",
+          "meaning": "3分",
+          "special": true
+        },
+        {
+          "kanji": "四分",
+          "kana": "よんぷん",
+          "romaji": "yonpun",
+          "meaning": "4分",
+          "special": true
+        },
+        { "kanji": "五分", "kana": "ごふん", "romaji": "gofun", "meaning": "5分" },
+        {
+          "kanji": "六分",
+          "kana": "ろっぷん",
+          "romaji": "roppun",
+          "meaning": "6分",
+          "special": true
+        },
+        { "kanji": "七分", "kana": "ななふん", "romaji": "nanafun", "meaning": "7分" },
+        {
+          "kanji": "八分",
+          "kana": "はっぷん",
+          "romaji": "happun",
+          "meaning": "8分",
+          "special": true
+        },
+        { "kanji": "九分", "kana": "きゅうふん", "romaji": "kyuufun", "meaning": "9分" },
+        {
+          "kanji": "十分",
+          "kana": "じゅっぷん",
+          "romaji": "juppun",
+          "meaning": "10分",
+          "special": true
+        },
+        { "kanji": "半", "kana": "はん", "romaji": "han", "meaning": "30分" }
+      ]
+    }
+  ],
+  "dates": [
+    {
+      "groupName": "月份 (Months - 月)",
+      "items": [
+        { "kanji": "一月", "kana": "いちがつ", "romaji": "ichigatsu", "meaning": "1月" },
+        { "kanji": "二月", "kana": "にがつ", "romaji": "nigatsu", "meaning": "2月" },
+        { "kanji": "三月", "kana": "さんがつ", "romaji": "sangatsu", "meaning": "3月" },
+        {
+          "kanji": "四月",
+          "kana": "しがつ",
+          "romaji": "shigatsu",
+          "meaning": "4月",
+          "special": true
+        },
+        { "kanji": "五月", "kana": "ごがつ", "romaji": "gogatsu", "meaning": "5月" },
+        { "kanji": "六月", "kana": "ろくがつ", "romaji": "rokugatsu", "meaning": "6月" },
+        {
+          "kanji": "七月",
+          "kana": "しちがつ",
+          "romaji": "shichigatsu",
+          "meaning": "7月",
+          "special": true
+        },
+        { "kanji": "八月", "kana": "はちがつ", "romaji": "hachigatsu", "meaning": "8月" },
+        {
+          "kanji": "九月",
+          "kana": "くがつ",
+          "romaji": "kugatsu",
+          "meaning": "9月",
+          "special": true
+        },
+        { "kanji": "十月", "kana": "じゅうがつ", "romaji": "juugatsu", "meaning": "10月" },
+        {
+          "kanji": "十一月",
+          "kana": "じゅういちがつ",
+          "romaji": "juuichigatsu",
+          "meaning": "11月"
+        },
+        { "kanji": "十二月", "kana": "じゅうにがつ", "romaji": "juunigatsu", "meaning": "12月" }
+      ]
+    },
+    {
+      "groupName": "日期 (Days - 日)",
+      "items": [
+        {
+          "kanji": "一日",
+          "kana": "ついたち",
+          "romaji": "tsuitachi",
+          "meaning": "1號",
+          "special": true
+        },
+        {
+          "kanji": "二日",
+          "kana": "ふつか",
+          "romaji": "futsuka",
+          "meaning": "2號",
+          "special": true
+        },
+        { "kanji": "三日", "kana": "みっか", "romaji": "mikka", "meaning": "3號", "special": true },
+        { "kanji": "四日", "kana": "よっか", "romaji": "yokka", "meaning": "4號", "special": true },
+        {
+          "kanji": "五日",
+          "kana": "いつか",
+          "romaji": "itsuka",
+          "meaning": "5號",
+          "special": true
+        },
+        { "kanji": "六日", "kana": "むいか", "romaji": "muika", "meaning": "6號", "special": true },
+        {
+          "kanji": "七日",
+          "kana": "なのか",
+          "romaji": "nanoka",
+          "meaning": "7號",
+          "special": true
+        },
+        { "kanji": "八日", "kana": "ようか", "romaji": "youka", "meaning": "8號", "special": true },
+        {
+          "kanji": "九日",
+          "kana": "ここのか",
+          "romaji": "kokonoka",
+          "meaning": "9號",
+          "special": true
+        },
+        {
+          "kanji": "十日",
+          "kana": "とおか",
+          "romaji": "tooka",
+          "meaning": "10號",
+          "special": true
+        },
+        {
+          "kanji": "十一日",
+          "kana": "じゅういちにち",
+          "romaji": "juuichinichi",
+          "meaning": "11號"
+        },
+        { "kanji": "十二日", "kana": "じゅうににち", "romaji": "juuninichi", "meaning": "12號" },
+        { "kanji": "十三日", "kana": "じゅうさんにち", "romaji": "juusannichi", "meaning": "13號" },
+        {
+          "kanji": "十四日",
+          "kana": "じゅうよっか",
+          "romaji": "juuyokka",
+          "meaning": "14號",
+          "special": true
+        },
+        { "kanji": "十五日", "kana": "じゅうごにち", "romaji": "juugonichi", "meaning": "15號" },
+        {
+          "kanji": "十六日",
+          "kana": "じゅうろくにち",
+          "romaji": "juurokunichi",
+          "meaning": "16號"
+        },
+        {
+          "kanji": "十七日",
+          "kana": "じゅうしちにち",
+          "romaji": "juushichinichi",
+          "meaning": "17號"
+        },
+        {
+          "kanji": "十八日",
+          "kana": "じゅうはちにち",
+          "romaji": "juuhachinichi",
+          "meaning": "18號"
+        },
+        { "kanji": "十九日", "kana": "じゅうくにち", "romaji": "juukunichi", "meaning": "19號" },
+        {
+          "kanji": "二十日",
+          "kana": "はつか",
+          "romaji": "hatsuka",
+          "meaning": "20號",
+          "special": true
+        },
+        {
+          "kanji": "二十一日",
+          "kana": "にじゅういちにち",
+          "romaji": "nijuuyichinichi",
+          "meaning": "21號"
+        },
+        {
+          "kanji": "二十二日",
+          "kana": "にじゅうににち",
+          "romaji": "nijuuninichi",
+          "meaning": "22號"
+        },
+        {
+          "kanji": "二十三日",
+          "kana": "にじゅうさんにち",
+          "romaji": "nijuusannichi",
+          "meaning": "23號"
+        },
+        {
+          "kanji": "二十四日",
+          "kana": "にじゅうよっか",
+          "romaji": "nijuuyokka",
+          "meaning": "24號",
+          "special": true
+        },
+        {
+          "kanji": "二十五日",
+          "kana": "にじゅうごにち",
+          "romaji": "nijuugonichi",
+          "meaning": "25號"
+        },
+        {
+          "kanji": "二十六日",
+          "kana": "にじゅうろくにち",
+          "romaji": "nijuurokunichi",
+          "meaning": "26號"
+        },
+        {
+          "kanji": "二十七日",
+          "kana": "にじゅうしちにち",
+          "romaji": "nijuushichinichi",
+          "meaning": "27號"
+        },
+        {
+          "kanji": "二十八日",
+          "kana": "にじゅうはちにち",
+          "romaji": "nijuuhachinichi",
+          "meaning": "28號"
+        },
+        {
+          "kanji": "二十九日",
+          "kana": "にじゅうくにち",
+          "romaji": "nijuukunichi",
+          "meaning": "29號"
+        },
+        { "kanji": "三十日", "kana": "さんじゅうにち", "romaji": "sanjuunichi", "meaning": "30號" },
+        {
+          "kanji": "三十一日",
+          "kana": "さんじゅういちにち",
+          "romaji": "sanjuuichinichi",
+          "meaning": "31號"
+        }
+      ]
+    }
+  ],
+  "counters": [
+    {
+      "groupName": "個數 (General - つ)",
+      "items": [
+        {
+          "kanji": "一つ",
+          "kana": "ひとつ",
+          "romaji": "hitotsu",
+          "meaning": "1個",
+          "special": true
+        },
+        {
+          "kanji": "二つ",
+          "kana": "ふたつ",
+          "romaji": "futatsu",
+          "meaning": "2個",
+          "special": true
+        },
+        {
+          "kanji": "三つ",
+          "kana": "みっつ",
+          "romaji": "mikktsu",
+          "meaning": "3個",
+          "special": true
+        },
+        {
+          "kanji": "四つ",
+          "kana": "よっつ",
+          "romaji": "yottsu",
+          "meaning": "4個",
+          "special": true
+        },
+        {
+          "kanji": "五つ",
+          "kana": "いつつ",
+          "romaji": "itsutsu",
+          "meaning": "5個",
+          "special": true
+        },
+        {
+          "kanji": "六つ",
+          "kana": "むっつ",
+          "romaji": "muttsu",
+          "meaning": "6個",
+          "special": true
+        },
+        {
+          "kanji": "七つ",
+          "kana": "ななつ",
+          "romaji": "nanatsu",
+          "meaning": "7個",
+          "special": true
+        },
+        {
+          "kanji": "八つ",
+          "kana": "やっつ",
+          "romaji": "yattsu",
+          "meaning": "8個",
+          "special": true
+        },
+        {
+          "kanji": "九つ",
+          "kana": "ここのつ",
+          "romaji": "kokonotsu",
+          "meaning": "9個",
+          "special": true
+        },
+        { "kanji": "十", "kana": "とお", "romaji": "too", "meaning": "10個", "special": true }
+      ]
+    },
+    {
+      "groupName": "人數 (People - 人)",
+      "items": [
+        {
+          "kanji": "一人",
+          "kana": "ひとり",
+          "romaji": "hitori",
+          "meaning": "1人",
+          "special": true
+        },
+        {
+          "kanji": "二人",
+          "kana": "ふたり",
+          "romaji": "futari",
+          "meaning": "2人",
+          "special": true
+        },
+        { "kanji": "三人", "kana": "さんにん", "romaji": "sannin", "meaning": "3人" },
+        { "kanji": "四人", "kana": "よにん", "romaji": "yonin", "meaning": "4人", "special": true }
+      ]
+    },
+    {
+      "groupName": "物品與形狀 (Physical Objects)",
+      "items": [
+        {
+          "kanji": "一枚",
+          "kana": "いちまい",
+          "romaji": "ichimai",
+          "meaning": "1枚 (紙、CD、衣服)"
+        },
+        {
+          "kanji": "一本",
+          "kana": "いっぽん",
+          "romaji": "ippon",
+          "meaning": "1本 (瓶、筆、傘)",
+          "special": true
+        },
+        {
+          "kanji": "三本",
+          "kana": "さんぼん",
+          "romaji": "sanbon",
+          "meaning": "3本",
+          "special": true
+        },
+        {
+          "kanji": "六本",
+          "kana": "ろっぽん",
+          "romaji": "roppon",
+          "meaning": "6本",
+          "special": true
+        },
+        {
+          "kanji": "八本",
+          "kana": "はっぽん",
+          "romaji": "happon",
+          "meaning": "8本",
+          "special": true
+        },
+        {
+          "kanji": "十本",
+          "kana": "じゅっぽん",
+          "romaji": "juppon",
+          "meaning": "10本",
+          "special": true
+        },
+        {
+          "kanji": "一台",
+          "kana": "いちだい",
+          "romaji": "ichidai",
+          "meaning": "1台 (車、電腦、相機)"
+        }
+      ]
+    },
+    {
+      "groupName": "書籍、次數與樓層 (Satsu, Kai, Kai)",
+      "items": [
+        {
+          "kanji": "一冊",
+          "kana": "いっさつ",
+          "romaji": "issatsu",
+          "meaning": "1冊 (書本)",
+          "special": true
+        },
+        {
+          "kanji": "一回",
+          "kana": "いっかい",
+          "romaji": "ikkai",
+          "meaning": "1次",
+          "special": true
+        },
+        {
+          "kanji": "一階",
+          "kana": "いっかい",
+          "romaji": "ikkai",
+          "meaning": "1樓",
+          "special": true
+        },
+        {
+          "kanji": "三階",
+          "kana": "さんがい",
+          "romaji": "sangai",
+          "meaning": "3樓",
+          "special": true
+        }
+      ]
+    },
+    {
+      "groupName": "動物 (Animals)",
+      "items": [
+        {
+          "kanji": "一匹",
+          "kana": "いっぴき",
+          "romaji": "ippiki",
+          "meaning": "1隻 (小動物)",
+          "special": true
+        },
+        {
+          "kanji": "三匹",
+          "kana": "さんびき",
+          "romaji": "sanbiki",
+          "meaning": "3隻",
+          "special": true
+        },
+        {
+          "kanji": "六匹",
+          "kana": "ろっぴき",
+          "romaji": "roppiki",
+          "meaning": "6隻",
+          "special": true
+        },
+        {
+          "kanji": "八匹",
+          "kana": "はっぴき",
+          "romaji": "happiki",
+          "meaning": "8隻",
+          "special": true
+        },
+        {
+          "kanji": "一頭",
+          "kana": "いっとう",
+          "romaji": "ittou",
+          "meaning": "1頭 (大型動物)",
+          "special": true
+        }
+      ]
+    }
+  ]
+}

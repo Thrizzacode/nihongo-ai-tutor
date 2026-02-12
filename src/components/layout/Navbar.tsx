@@ -6,9 +6,9 @@ import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 
 const NAV_LINKS = [
-  { href: "#features", label: "功能特色" },
-  { href: "#how-it-works", label: "使用方式" },
-  { href: "#demo", label: "產品預覽" },
+  { href: "/basics", label: "基礎知識" },
+  { href: "/#features", label: "功能特色" },
+  { href: "/#how-it-works", label: "使用方式" },
 ];
 
 function useNavbarScroll() {
@@ -17,8 +17,7 @@ function useNavbarScroll() {
   useEffect(() => {
     const handleScroll = () => {
       if (!navRef.current) return;
-      navRef.current.style.boxShadow =
-        window.scrollY > 20 ? "0 1px 12px rgba(0,0,0,0.06)" : "none";
+      navRef.current.style.boxShadow = window.scrollY > 20 ? "0 1px 12px rgba(0,0,0,0.06)" : "none";
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -52,17 +51,13 @@ export default function Navbar() {
             alt="Nihongo AI Logo"
             width={60}
             height={60}
-            quality={100}
             className="h-10 w-10 md:h-[60px] md:w-[60px]"
           />
           <span>Nihongo AI Tutor</span>
         </Link>
 
         {/* Navigation Links (desktop) */}
-        <ul
-          className="hidden items-center gap-8 md:flex"
-          style={{ listStyle: "none" }}
-        >
+        <ul className="hidden items-center gap-8 md:flex" style={{ listStyle: "none" }}>
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a href={link.href} className="navbar-link">

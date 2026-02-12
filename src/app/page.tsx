@@ -317,7 +317,7 @@ function DemoPreviewSection() {
             對話介面
           </h2>
           <p className="mb-8 max-w-[560px] text-base leading-relaxed text-text-secondary">
-            Desktop 端提供對話 + 側欄糾錯的雙欄佈局；
+            Web 端提供對話 + 側欄糾錯的雙欄佈局；
             <br />
             Mobile 端則以對話為核心，輕觸即可查看反饋。
           </p>
