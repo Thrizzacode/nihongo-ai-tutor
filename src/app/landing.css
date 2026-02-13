@@ -54,15 +54,28 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 200;
   height: 72px;
   display: flex;
   align-items: center;
   background: rgba(250, 249, 246, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(232, 229, 225, 0.6);
+  border-bottom: 1px solid transparent;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.is-open {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(232, 229, 225, 0.6);
 }
 
 .navbar-link {
@@ -103,11 +116,7 @@
   right: -80px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(
-    circle,
-    rgba(208, 93, 110, 0.08) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(208, 93, 110, 0.08) 0%, transparent 70%);
   border-radius: 50%;
 }
 .hero::after {
@@ -117,11 +126,7 @@
   left: -100px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(45, 90, 39, 0.06) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(45, 90, 39, 0.06) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -207,12 +212,7 @@
   left: 16%;
   right: 16%;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--border),
-    var(--primary),
-    var(--border)
-  );
+  background: linear-gradient(90deg, var(--border), var(--primary), var(--border));
 }
 
 /* --- Step hover --- */
