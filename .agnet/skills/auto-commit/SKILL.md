@@ -1,52 +1,84 @@
 ---
 name: auto-commit
-description: 自動生成符合 Angular 規範的 Commit Message。針對大型變動自動分段，避免 AI 處理上限。
-version: 1.4.0
+description: 全自動化 Git 流程助手。依據 Angular 規範生成 Commit，自動處理 Push 與 PR 發送。
+version: 2.2.0
 ---
 
-# Auto Commit Executor Skill
+# Auto Commit Skill (Git Automator)
 
-## Trigger Keywords (觸發關鍵詞)
+## Trigger Keywords
 
-(保持不變...)
+- `commit`
+- `幫我commit`
 
-## Context
+## Context & Constraints
 
-當使用者要求 Commit 時，優先分析暫存區(Staging Area)，若暫存區為空則分析工作區。
+- **核心目標**：將代碼從 Local 安全、規範地送往 Remote，並可一鍵發 PR。
+- **優先級**：優先分析暫存區 (Staging Area)，若為空則分析工作區 (Working Directory)。
+- **Token 優化**：避免一次性讀取過多 Diff 導致上下文溢出。
+- **安全性**：在執行 `git add -A` 前需確保使用者知情。
 
 ## Instructions
 
-### Step 0: 環境與變更檢查 (穩定性優化)
+### Step 1: 環境掃描與狀態偵測
 
-1. **預檢查**：執行 `git status --porcelain`。若輸出包含亂碼或特殊錯誤，請優先提示使用者檢查 Terminal 編碼或 Profile 設定。
-2. **變更檢查**：
-   - 執行 `git diff --cached --stat` (先看統計，不看內容)。
-   - 如果暫存區為空，執行 `git diff --stat`。
-   - **如果變更檔案超過 10 個或總行數過多**：提醒使用者「變更較大，建議分批提交或由我摘要主要變動」，以避免觸發 1500 bytes 截斷限制。
+1.  **獲取當前分支**：執行 `git rev-parse --abbrev-ref HEAD` 獲取當前分支名稱 (記為 `{{current_branch}}`)。
+2.  **變更量檢查**：
+    - 執行 `git diff --cached --stat`。若無輸出，則執行 `git diff --stat` (並標記需執行 `git add`)。
+    - **Guardrail**: 若變更檔案超過 **10 個** 或 `insertions/deletions` 超過 **500 行**，**不讀取完整 Diff**。僅列出變更檔案列表，並要求使用者提供本次變更的「一句話摘要」以輔助生成。
+3.  **精準讀取**：
+    - 若變更在安全範圍內，執行 `git diff --cached -U1` (若暫存區為空則去掉 `--cached`)。`-U1` 僅保留 1 行上下文以節省 Token。
 
-### Step 1: 分析與生成 (效能優化)
+### Step 2: 生成 Commit Message (Angular Convention)
 
-1. **精準讀取**：不要直接執行 `git diff`，改用 `git diff -U1` (減少上下文行數) 來讀取具體內容，確保核心邏輯不被截斷。
-2. **生成規範**：
-   - **Subject**: `<type>(<scope>): <summary>` (中文摘要)。
-   - **Details**:
-     - 每個修改點以 `- ` 開頭。
-     - 若修改包含多個組件，必須依組件分類標註。
+基於 Diff 內容生成符合 Angular 規範的訊息：
 
-### Step 2: 預覽與確認
+- **Header**: `<type>(<scope>): <summary>` (中文)
+  - `type`: feat, fix, docs, style, refactor, perf, test, chore, revert, build, ci.
+  - `scope`: 受影響的組件或檔案夾名稱 (可選)。
+- **Body**:
+  - 使用列點 `- ` 說明具體變更。
+  - 若有多個邏輯變更，請分段說明。
 
-(展示格式保持不變，但增加「略過確認」的快速選項)
+### Step 3: 預覽與確認
 
-> **建議 Commit 內容：** ...
-> **是否執行？** (輸入 y 直接提交 / p 提交並推送 / n 取消)
+請輸出以下區塊供使用者確認：
 
-### Step 3: 執行 Git 命令 (強健性優化)
+> **🚀 Auto Commit 準備就緒**
+> **當前分支**: `{{current_branch}}`
+> **建議 Commit**:
+>
+> **請選擇下一步：**
+>
+> - **[y]** 僅提交 (Commit)
+> - **[p]** 提交並推送 (Commit & Push)
+> - **[d]** 提交、推送並發 PR 到 main (Commit, Push & PR)
+> - **[n]** 取消
 
-**當使用者確認後：**
+### Step 4: 執行 Git 命令
 
-1. **確保編碼**：在執行 commit 前，內部隱含執行一次環境檢查。
-2. **執行指令**：
-   ```bash
-   git add -A
-   git commit -m "<標題>" -m "<細節1>" -m "<細節2>"
-   ```
+根據使用者選擇執行：
+
+- **Case [y]**:
+  1. `git add -A`
+  2. `git commit -m "<標題>" -m "<細節1>" -m "<細節2>"`
+- **Case [p]**:
+  1. 執行 [y] 的步驟。
+  2. `git push origin {{current_branch}}`
+- **Case [d]**:
+  1. 執行 [p] 的步驟。
+  2. 進入 **Step 5**。
+- **Case [n]**:
+  - 不做任何操作，結束流程。
+
+### Step 5: 自動發 PR 到 main
+
+**僅在選擇 [d] 時執行：**
+
+1.  使用 `mcp_github_create_pull_request` 工具建立 Pull Request：
+    - **owner / repo**：從 `git remote -v` 中解析。
+    - **head**: `{{current_branch}}`
+    - **base**: `main`
+    - **title**: 與 Commit Header 相同。
+    - **body**: 包含本次 Commit 的完整 Body 內容，格式化為 Markdown 列表。
+2.  輸出 PR 連結並提示：「✅ PR 已建立，請前往 GitHub 確認或合併。」
