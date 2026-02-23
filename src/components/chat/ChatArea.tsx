@@ -71,7 +71,7 @@ export default function ChatArea() {
             </div>
           )}
           {messages.map((m) => (
-            <MessageBubble key={m.id} message={m} />
+            <MessageBubble key={m.id} message={m} onOpenSidebar={() => setIsSidebarOpen(true)} />
           ))}
           {isLoading && (
             <div className="flex gap-1 self-start p-3">

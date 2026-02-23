@@ -1,14 +1,16 @@
 "use client";
 
 import { UIMessage } from "ai";
+import Markdown from "react-markdown";
 import { ParsedFeedback } from "./SidebarFeedback";
 import { parseJsonSafely, getMessageText } from "./utils";
 
 interface MessageBubbleProps {
   message: UIMessage;
+  onOpenSidebar?: () => void;
 }
 
-export default function MessageBubble({ message }: MessageBubbleProps) {
+export default function MessageBubble({ message, onOpenSidebar }: MessageBubbleProps) {
   const isUser = message.role === "user";
 
   const rawText = getMessageText(message);
@@ -45,15 +47,39 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
       <div
         className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${isUser ? "bg-sakura-light text-foreground" : "bg-card border border-border"}`}
       >
-        <span className="whitespace-pre-wrap">
-          {isUser
-            ? // User message rendering via parts if available
-              message.parts?.map((part, index) =>
-                part.type === "text" ? <span key={index}>{part.text}</span> : null,
-              ) || displayText
-            : // Assistant message: if we parsed a reply, show it, otherwise show parts
-              displayText}
-        </span>
+        {isUser ? (
+          <span className="whitespace-pre-wrap">
+            {message.parts?.map((part, index) =>
+              part.type === "text" ? <span key={index}>{part.text}</span> : null,
+            ) || displayText}
+          </span>
+        ) : (
+          <div className="prose-chat">
+            <Markdown
+              components={{
+                p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                strong: ({ children }) => (
+                  <strong className="font-bold text-foreground">{children}</strong>
+                ),
+                em: ({ children }) => <em className="text-primary/80">{children}</em>,
+                ul: ({ children }) => (
+                  <ul className="list-disc pl-4 my-1 space-y-0.5">{children}</ul>
+                ),
+                ol: ({ children }) => (
+                  <ol className="list-decimal pl-4 my-1 space-y-0.5">{children}</ol>
+                ),
+                li: ({ children }) => <li className="text-sm">{children}</li>,
+                code: ({ children }) => (
+                  <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono text-primary">
+                    {children}
+                  </code>
+                ),
+              }}
+            >
+              {displayText}
+            </Markdown>
+          </div>
+        )}
       </div>
       {/* ... feedback indicators ... */}
       {!isUser &&
@@ -61,14 +87,20 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         (parsedJson.corrections.length > 0 || parsedJson.new_vocabulary.length > 0) && (
           <div className="mt-1 flex gap-2">
             {parsedJson.corrections.length > 0 && (
-              <span className="text-[10px] bg-matsu/10 text-matsu px-1.5 py-0.5 rounded font-medium">
+              <button
+                onClick={onOpenSidebar}
+                className="text-[12px] bg-matsu/10 text-matsu px-1.5 py-0.5 rounded font-medium cursor-pointer active:scale-95 transition-transform md:cursor-default"
+              >
                 ✨ 有建議修正
-              </span>
+              </button>
             )}
             {parsedJson.new_vocabulary.length > 0 && (
-              <span className="text-[10px] bg-sakura/10 text-sakura-dark px-1.5 py-0.5 rounded font-medium">
+              <button
+                onClick={onOpenSidebar}
+                className="text-[12px] bg-sakura/10 text-sakura-dark px-1.5 py-0.5 rounded font-medium cursor-pointer active:scale-95 transition-transform md:cursor-default"
+              >
                 📚 新單字
-              </span>
+              </button>
             )}
           </div>
         )}
