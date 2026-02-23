@@ -94,7 +94,8 @@ export default function ChatArea() {
               onChange={(e) => setInputLocal(e.target.value)}
               disabled={isLoading}
               placeholder="輸入日文或中文..."
-              className="flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-text-muted"
+              className="flex-1 bg-transparent py-2 text-base outline-none placeholder:text-text-muted"
+              style={{ fontSize: "16px" }}
             />
             <button
               type="submit"
@@ -117,7 +118,7 @@ export default function ChatArea() {
       {/* 手機版遮罩 */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-[300] bg-black/20 backdrop-blur-sm md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

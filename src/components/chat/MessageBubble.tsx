@@ -20,12 +20,20 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
     parsedJson = parseJsonSafely<ParsedFeedback>(rawText);
     if (parsedJson && parsedJson.reply) {
       displayText = parsedJson.reply;
-    } else if (rawText.trim().startsWith("{")) {
+    } else if (rawText.trim().startsWith("{") || rawText.trim().startsWith("```")) {
       // 串流中，JSON 還不完整，嘗試用 regex 抓出 partial reply
       // 我們找 "reply": " 之後的所有內容，直到下一個雙引號或字串結尾
       const replyMatch = rawText.match(/"reply"\s*:\s*"([^"]*)/);
       if (replyMatch && replyMatch[1]) {
-        displayText = replyMatch[1];
+        // regex 抓到的是 raw JSON 字串，需要手動 unescape（\n \t \" 等 JSON escape 序列）
+        try {
+          displayText = JSON.parse(`"${replyMatch[1]}"`);
+        } catch {
+          displayText = replyMatch[1]
+            .replace(/\\n/g, "\n")
+            .replace(/\\t/g, "\t")
+            .replace(/\\"/g, '"');
+        }
       } else {
         displayText = "...";
       }

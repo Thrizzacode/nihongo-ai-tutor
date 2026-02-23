@@ -26,7 +26,7 @@ export default function SidebarFeedback({ lastFeedback, isOpen, onClose }: Sideb
   return (
     <aside
       className={`
-        fixed inset-y-0 right-0 z-50 w-[300px] border-l border-border bg-card transition-transform duration-300 ease-in-out md:static md:w-[350px] md:translate-x-0
+        fixed inset-y-0 right-0 z-[350] w-[300px] border-l border-border bg-card transition-transform duration-300 ease-in-out md:static md:w-[350px] md:translate-x-0
         ${isOpen ? "translate-x-0 pt-[72px]" : "translate-x-full md:pt-0"}
       `}
     >
