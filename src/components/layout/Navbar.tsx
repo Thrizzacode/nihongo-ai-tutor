@@ -7,6 +7,7 @@ import logo from "@/assets/images/logo.png";
 
 const NAV_LINKS = [
   { href: "/basics", label: "基礎知識" },
+  { href: "/practice", label: "對話練習" },
   { href: "/#features", label: "功能特色" },
   { href: "/#how-it-works", label: "使用方式" },
 ];
