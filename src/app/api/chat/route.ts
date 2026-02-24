@@ -58,10 +58,15 @@ export async function POST(req: Request) {
     });
 
     return result.toUIMessageStreamResponse();
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("AI Chat API Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to process chat" }), {
-      status: 500,
+
+    const errMsg = error instanceof Error ? error.message : String(error);
+    const isRateLimit =
+      errMsg.includes("429") || errMsg.includes("quota") || errMsg.includes("RESOURCE_EXHAUSTED");
+
+    return new Response(JSON.stringify({ error: isRateLimit ? "RATE_LIMIT" : "SERVER_ERROR" }), {
+      status: isRateLimit ? 429 : 500,
       headers: { "Content-Type": "application/json" },
     });
   }

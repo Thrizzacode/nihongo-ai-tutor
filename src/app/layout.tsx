@@ -32,6 +32,8 @@ export const metadata: Metadata = {
     "透過 AI 即時對話與智能糾錯，隨時隨地練習日語口說與寫作。從「敢說」到「說對」，開始你的日語學習之旅。",
 };
 
+import { ToastProvider } from "@/components/ui/Toast";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,7 +44,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSansJP.variable} ${shipporiMincho.variable} antialiased`}
       >
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );
