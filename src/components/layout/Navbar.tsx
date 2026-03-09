@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
+import { useAuth } from "@/contexts/AuthContext";
+import UserNavMenu from "./UserNavMenu";
 
 const NAV_LINKS = [
   { href: "/basics", label: "基礎知識" },
@@ -29,6 +31,7 @@ function useNavbarScroll() {
 export default function Navbar() {
   const isScrolled = useNavbarScroll();
   const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   // 點擊連結後自動關閉選單
   const handleLinkClick = () => setIsOpen(false);
@@ -78,12 +81,18 @@ export default function Navbar() {
           </ul>
 
           {/* CTA (desktop) */}
-          <Link
-            href="/signup"
-            className="btn-primary-landing hidden rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-white md:inline-flex"
-          >
-            免費體驗
-          </Link>
+          <div className="hidden md:inline-flex">
+            {user ? (
+              <UserNavMenu />
+            ) : (
+              <Link
+                href="/signup"
+                className="btn-primary-landing rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-white"
+              >
+                免費體驗
+              </Link>
+            )}
+          </div>
 
           {/* Hamburger (mobile) */}
           <button
@@ -139,13 +148,44 @@ export default function Navbar() {
         </ul>
 
         <div className="mt-auto border-t border-border p-6">
-          <Link
-            href="/signup"
-            className="btn-primary-landing flex w-full items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white"
-            onClick={handleLinkClick}
-          >
-            免費體驗
-          </Link>
+          {user ? (
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-matsu-light text-matsu font-bold">
+                  {user.email?.charAt(0).toUpperCase() || "U"}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">我的帳戶</span>
+                  <span className="text-xs text-text-muted">{user.email}</span>
+                </div>
+              </div>
+              <Link
+                href="/practice"
+                className="btn-primary-landing flex w-full items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white"
+                onClick={handleLinkClick}
+              >
+                開始練習
+              </Link>
+              <button
+                onClick={async () => {
+                  await signOut();
+                  handleLinkClick();
+                  window.location.href = "/";
+                }}
+                className="flex w-full items-center justify-center rounded-xl border border-border bg-background px-6 py-3 text-sm font-medium text-red-600 hover:bg-red-50"
+              >
+                登出
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/signup"
+              className="btn-primary-landing flex w-full items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white"
+              onClick={handleLinkClick}
+            >
+              免費體驗
+            </Link>
+          )}
         </div>
       </div>
     </>

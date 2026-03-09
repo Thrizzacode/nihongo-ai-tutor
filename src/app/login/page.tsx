@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,30 +19,36 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
+  const [error, setError] = useState("");
+  const { signIn, signInWithGoogle } = useAuth();
+  const router = useRouter();
 
-  // 1. Email/Password 登入
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) alert(error.message);
-    else window.location.href = "/dashboard"; // 登入成功跳轉
-    setLoading(false);
+    setError("");
+    try {
+      await signIn(email, password);
+      router.push("/practice");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "登入失敗，請檢查帳號密碼");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // 2. Google 第三方登入 (暫時關閉)
-  /*
   const handleGoogleLogin = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
-    });
+    setLoading(true);
+    setError("");
+    try {
+      await signInWithGoogle();
+      router.push("/practice");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Google 登入失敗");
+    } finally {
+      setLoading(false);
+    }
   };
-  */
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -53,6 +60,8 @@ export default function LoginPage() {
           <CardDescription>歡迎回來，今天也要一起練習日文嗎？</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {error && <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md">{error}</div>}
+
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <Input
@@ -81,15 +90,12 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          {/* 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted-foreground">
-                或透過以下方式
-              </span>
+              <span className="bg-background px-2 text-muted-foreground">或透過以下方式</span>
             </div>
           </div>
 
@@ -97,10 +103,10 @@ export default function LoginPage() {
             variant="outline"
             className="w-full border-gray-200"
             onClick={handleGoogleLogin}
+            disabled={loading}
           >
             使用 Google 帳號登入
           </Button>
-          */}
         </CardContent>
         <CardFooter className="flex flex-wrap items-center justify-center gap-1 text-sm text-muted-foreground">
           還沒有帳號嗎？{" "}

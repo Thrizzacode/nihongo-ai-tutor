@@ -1,0 +1,54 @@
+schema: spec-driven
+locale: tw
+parallel_tasks: true
+audit: true
+
+context: |
+  # Project: Nihongo AI Tutor (AI 日語家教平台)
+  Domain: 語言學習平台，提供 AI 即時對話、日語基礎知識查閱、智能糾錯等功能。
+
+  ## Tech Stack
+  - **Framework**: Next.js 16 (App Router, React Server Components)
+  - **Language**: TypeScript 5 (strict mode)
+  - **UI Runtime**: React 19 (with React Compiler enabled)
+  - **Styling**: Tailwind CSS v4 + tw-animate-css
+  - **Component Library**: shadcn/ui (new-york style, CSS variables, Zinc base color)
+  - **Icons**: Lucide React
+  - **AI**: Vercel AI SDK (ai + @ai-sdk/react + @ai-sdk/google) → Google Gemini
+  - **Backend / Auth / DB**: Supabase (@supabase/supabase-js + @supabase/ssr)
+  - **Package Manager**: pnpm
+  - **Fonts**: Geist (Sans + Mono), Noto Sans JP, Shippori Mincho (via next/font/google)
+
+  ## Project Structure
+  - `src/app/` — App Router pages & layouts (RSC by default, `"use client"` 僅在需要時標注)
+  - `src/components/ui/` — shadcn/ui 元件
+  - `src/components/layout/` — 共用佈局元件 (Navbar 等)
+  - `src/components/chat/` — 對話功能元件
+  - `src/data/` — 靜態資料 (JSON / TS)
+  - `src/hooks/` — 自訂 React Hooks
+  - `src/lib/` — 工具函式 (cn, utils)
+  - `src/utils/supabase/` — Supabase client/server/middleware 工具
+  - `src/assets/` — 靜態資源
+
+  ## Conventions
+  - **Path Alias**: `@/*` → `./src/*`
+  - **Commit Convention**: Angular (中文 summary)，例: `feat(chat): 新增語音輸入功能`
+  - **Linting**: ESLint 9 (next/core-web-vitals + next/typescript + prettier)
+  - **Formatting**: Prettier (semi, double quotes, tabWidth 2, trailingComma all, printWidth 100)
+  - **Language**: UI 面向繁體中文使用者，代碼註解使用中文，技術文件可中英混用
+  - **Naming**: 元件使用 PascalCase，檔案名稱與元件名一致；hooks 以 `use` 前綴命名
+  - **元件拆分**: 若 UI 具有重用潛力，優先拆為全域共用元件放在 `src/components/` 下，避免只寫在當前 page 裡
+
+rules:
+  proposal:
+    - 提案內容保持簡潔，避免超過 500 字
+    - 必須包含「影響範圍」與「替代方案」段落
+    - 優先考慮 RSC (React Server Components)，減少 client-side bundle
+  tasks:
+    - 每個 Task 控制在 2 小時以內可完成
+    - 明確標註需要新增/修改的檔案路徑
+    - 標註是否涉及 Supabase schema 變更
+  spec:
+    - 用繁體中文撰寫規格描述
+    - 技術術語保留英文原文 (如 RSC, SSR, RLS)
+    - API 端點描述需包含 HTTP method、路徑、request/response 型別

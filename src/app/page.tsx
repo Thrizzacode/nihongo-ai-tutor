@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { useAuth } from "@/contexts/AuthContext";
 import "./landing.css";
 
 function useScrollFadeIn() {
@@ -85,6 +86,8 @@ function HeroChatPreview() {
 }
 
 function HeroSection() {
+  const { user } = useAuth();
+
   return (
     <section className="hero relative z-0">
       <div className="relative z-[1] mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-[60px]">
@@ -110,12 +113,21 @@ function HeroSection() {
           </p>
 
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
-            <Link
-              href="/signup"
-              className="btn-primary-landing inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white"
-            >
-              🚀 開始免費學習
-            </Link>
+            {user ? (
+              <Link
+                href="/practice"
+                className="btn-primary-landing inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white"
+              >
+                🚀 繼續對話練習
+              </Link>
+            ) : (
+              <Link
+                href="/signup"
+                className="btn-primary-landing inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white"
+              >
+                🚀 開始免費學習
+              </Link>
+            )}
             {/* <button className="btn-secondary-landing inline-flex items-center justify-center gap-2 rounded-2xl border-[1.5px] border-border bg-transparent px-8 py-4 text-base font-medium text-foreground">
               ▶ 觀看介紹
             </button> */}
@@ -394,6 +406,8 @@ function DemoPreviewSection() {
 
 // ─── CTA Section ───
 function CTASection() {
+  const { user } = useAuth();
+
   return (
     <section className="cta-section bg-gradient-to-br from-[#2D2926] to-[#3D3833] py-[100px] text-center text-white">
       <div className="fade-in mx-auto max-w-[1120px] px-6">
@@ -406,12 +420,21 @@ function CTASection() {
         <p className="mx-auto mb-10 max-w-[560px] text-base leading-relaxed text-white/65">
           免費開始，無需信用卡。讓 AI 成為你最有耐心的日語老師。
         </p>
-        <Link
-          href="/signup"
-          className="btn-primary-landing inline-flex items-center gap-2 rounded-2xl bg-primary px-10 py-[18px] text-lg font-semibold text-white shadow-[0_4px_24px_rgba(208,93,110,0.4)]"
-        >
-          🎌 立即免費開始
-        </Link>
+        {user ? (
+          <Link
+            href="/practice"
+            className="btn-primary-landing inline-flex items-center gap-2 rounded-2xl bg-primary px-10 py-[18px] text-lg font-semibold text-white shadow-[0_4px_24px_rgba(208,93,110,0.4)]"
+          >
+            🎌 繼續練習日語
+          </Link>
+        ) : (
+          <Link
+            href="/signup"
+            className="btn-primary-landing inline-flex items-center gap-2 rounded-2xl bg-primary px-10 py-[18px] text-lg font-semibold text-white shadow-[0_4px_24px_rgba(208,93,110,0.4)]"
+          >
+            🎌 立即免費開始
+          </Link>
+        )}
       </div>
     </section>
   );
