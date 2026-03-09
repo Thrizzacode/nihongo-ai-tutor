@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Volume2 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { speak } from "@/lib/speech";
 import kanaData from "@/data/kana.json";
 import basicsData from "@/data/basics.json";
 import { useFadeIn } from "@/hooks/useFadeIn";
@@ -28,8 +30,21 @@ export default function BasicsPage() {
   const [showKana, setShowKana] = useState(true);
   const [showRomaji, setShowRomaji] = useState(true);
   const [useKatakana, setUseKatakana] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(true);
 
   const containerRef = useFadeIn();
+
+  useEffect(() => {
+    const saved = localStorage.getItem("basics-autoplay");
+    if (saved !== null) {
+      setAutoPlay(saved === "true");
+    }
+  }, []);
+
+  const handleAutoPlayChange = (checked: boolean) => {
+    setAutoPlay(checked);
+    localStorage.setItem("basics-autoplay", String(checked));
+  };
 
   const CATEGORIES = [
     { id: "kana", label: "五十音", icon: "あ" },
@@ -112,8 +127,19 @@ export default function BasicsPage() {
                   </span>
                 </label>
               )}
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={autoPlay}
+                  onChange={(e) => handleAutoPlayChange(e.target.checked)}
+                  className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
+                />
+                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  自動播放發音
+                </span>
+              </label>
             </div>
-            <div className="text-xs text-text-muted italic">
+            <div className="text-xs text-text-muted italic hidden md:block">
               * 關閉「顯示假名」可作為記憶檢核模式
             </div>
           </div>
@@ -121,13 +147,19 @@ export default function BasicsPage() {
           {/* Content Area */}
           <div className="min-h-100">
             {activeCategory === "kana" && (
-              <KanaChart showKana={showKana} showRomaji={showRomaji} useKatakana={useKatakana} />
+              <KanaChart
+                showKana={showKana}
+                showRomaji={showRomaji}
+                useKatakana={useKatakana}
+                autoPlay={autoPlay}
+              />
             )}
             {activeCategory !== "kana" && (
               <BasicsGridView
                 category={activeCategory}
                 showKana={showKana}
                 showRomaji={showRomaji}
+                autoPlay={autoPlay}
               />
             )}
           </div>
@@ -145,10 +177,12 @@ function BasicsGridView({
   category,
   showKana,
   showRomaji,
+  autoPlay,
 }: {
   category: Category;
   showKana: boolean;
   showRomaji: boolean;
+  autoPlay: boolean;
 }) {
   const getData = () => {
     switch (category) {
@@ -203,6 +237,7 @@ function BasicsGridView({
                   item={item}
                   showKana={showKana}
                   showRomaji={showRomaji}
+                  autoPlay={autoPlay}
                 />
               ))}
             </div>
@@ -220,6 +255,7 @@ function BasicsGridView({
           item={item as BasicsItem}
           showKana={showKana}
           showRomaji={showRomaji}
+          autoPlay={autoPlay}
         />
       ))}
     </div>
@@ -230,16 +266,27 @@ function BasicsCard({
   item,
   showKana,
   showRomaji,
+  autoPlay,
 }: {
   item: { kanji: string; kana: string; romaji: string; meaning: string; special?: boolean };
   showKana: boolean;
   showRomaji: boolean;
+  autoPlay: boolean;
 }) {
   const [tempShow, setTempShow] = useState(false);
 
+  const handleClick = () => {
+    if (!showKana) {
+      if (!tempShow && autoPlay) {
+        speak(item.kana);
+      }
+      setTempShow(!tempShow);
+    }
+  };
+
   return (
     <div
-      onClick={() => !showKana && setTempShow(!tempShow)}
+      onClick={handleClick}
       className={`relative flex flex-col p-5 rounded-2xl border transition-all duration-300 group cursor-pointer ${
         showKana || tempShow
           ? "bg-white border-border shadow-sm hover:shadow-md hover:-translate-y-1"
@@ -248,11 +295,26 @@ function BasicsCard({
     >
       <div className="flex justify-between items-start mb-2">
         <div className="text-lg font-bold font-jp text-foreground">{item.kanji}</div>
-        {item.special && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold">
-            特殊
-          </span>
-        )}
+        <div className="flex items-center gap-1">
+          {item.special && (
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold">
+              特殊
+            </span>
+          )}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              speak(item.kana);
+            }}
+            className={`p-1 -mr-1 rounded-full transition-colors ${
+              showKana || tempShow
+                ? "text-text-muted hover:text-primary hover:bg-primary/10"
+                : "opacity-0 invisible"
+            }`}
+          >
+            <Volume2 className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       <div
@@ -289,10 +351,12 @@ function KanaChart({
   showKana,
   showRomaji,
   useKatakana,
+  autoPlay,
 }: {
   showKana: boolean;
   showRomaji: boolean;
   useKatakana: boolean;
+  autoPlay: boolean;
 }) {
   return (
     <div className="space-y-12">
@@ -314,6 +378,7 @@ function KanaChart({
                       showKana={showKana}
                       showRomaji={showRomaji}
                       useKatakana={useKatakana}
+                      autoPlay={autoPlay}
                     />
                   ) : (
                     <div className="aspect-square bg-transparent" />
@@ -344,6 +409,7 @@ function KanaChart({
                       showKana={showKana}
                       showRomaji={showRomaji}
                       useKatakana={useKatakana}
+                      autoPlay={autoPlay}
                     />
                   ) : (
                     <div className="aspect-square bg-transparent" />
@@ -374,6 +440,7 @@ function KanaChart({
                       showKana={showKana}
                       showRomaji={showRomaji}
                       useKatakana={useKatakana}
+                      autoPlay={autoPlay}
                     />
                   ) : (
                     <div className="aspect-square bg-transparent" />
@@ -393,23 +460,48 @@ function KanaCard({
   showKana,
   showRomaji,
   useKatakana,
+  autoPlay,
 }: {
   item: KanaItem;
   showKana: boolean;
   showRomaji: boolean;
   useKatakana: boolean;
+  autoPlay: boolean;
 }) {
   const [tempShow, setTempShow] = useState(false);
+  const reading = useKatakana ? item.katakana : item.hiragana;
+
+  const handleClick = () => {
+    if (!showKana) {
+      if (!tempShow && autoPlay) {
+        speak(reading);
+      }
+      setTempShow(!tempShow);
+    }
+  };
 
   return (
     <div
-      onClick={() => !showKana && setTempShow(!tempShow)}
+      onClick={handleClick}
       className={`aspect-square relative flex flex-col items-center justify-center p-2 rounded-2xl border transition-all duration-300 group cursor-pointer ${
         showKana || tempShow
           ? "bg-white border-border shadow-sm hover:shadow-md hover:-translate-y-1"
           : "bg-surface border-border/50 bg-[repeating-linear-gradient(45deg,#F3F1ED,#F3F1ED_10px,#FAF9F6_10px,#FAF9F6_20px)]"
       }`}
     >
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          speak(reading);
+        }}
+        className={`absolute top-1 right-1 p-1.5 rounded-full transition-colors z-10 ${
+          showKana || tempShow
+            ? "text-text-muted hover:text-primary hover:bg-primary/10"
+            : "opacity-0 invisible"
+        }`}
+      >
+        <Volume2 className="w-3.5 h-3.5" />
+      </button>
       <div
         className={`text-2xl md:text-3xl font-bold font-jp transition-all duration-300 ${
           showKana || tempShow
