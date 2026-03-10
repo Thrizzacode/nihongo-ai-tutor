@@ -11,7 +11,9 @@ export function speak(text: string, rate: number = 1.0): void {
   }
 
   try {
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Inject trailing punctuation for short texts to improve natural decay (especially for Kana cards)
+    const processedText = text.length <= 2 ? `${text}、` : text;
+    const utterance = new SpeechSynthesisUtterance(processedText);
 
     // Lock language to Japanese
     utterance.lang = "ja-JP";
