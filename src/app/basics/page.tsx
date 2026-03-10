@@ -322,9 +322,11 @@ function BasicsCard({
   const [tempShow, setTempShow] = useState(false);
 
   const handleClick = () => {
-    if (autoPlay) {
+    // Only speak on reveal (when autoPlay is true and card is currently hidden)
+    if (autoPlay && !showKana && !tempShow) {
       speak(item.kana, playbackRate);
     }
+
     if (!showKana) {
       setTempShow(!tempShow);
     }
@@ -525,9 +527,11 @@ function KanaCard({
   const reading = useKatakana ? item.katakana : item.hiragana;
 
   const handleClick = () => {
-    if (autoPlay) {
+    // Only speak on reveal (when autoPlay is true and card is currently hidden)
+    if (autoPlay && !showKana && !tempShow) {
       speak(reading, playbackRate);
     }
+
     if (!showKana) {
       setTempShow(!tempShow);
     }
