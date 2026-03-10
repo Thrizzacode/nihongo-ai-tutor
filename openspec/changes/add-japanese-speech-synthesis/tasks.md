@@ -1,6 +1,6 @@
 ## 1. 建立語音基礎工具 (Speech Foundation)
 
-- [x] 1.1 [P] 建立全域語音工具函式 `src/lib/speech.ts`，封裝 Web Speech API 背景執行邏輯（鎖定 `ja-JP` 語言，設定預設語速為 0.9）。 (References: `Japanese Text-to-Speech (TTS)`)
+- [x] 1.1 [P] 建立全域語音工具函式 `src/lib/speech.ts`，封裝 Web Speech API 背景執行邏輯（鎖定 `ja-JP` 語言，設定預設語速為 1.0）。 (References: `Japanese Text-to-Speech (TTS)`)
 - [x] 1.2 [P] 確保 `src/lib/speech.ts` 具備瀏覽器環境檢查（SSR 安全性），避免在伺服器端執行產生錯誤。 (References: `Playback Safety`)
 
 ## 2. 頁面狀態與 UI 整合 (Page State & UI Integration)

@@ -23,7 +23,7 @@
 1.  **實作全域工具函式** (`src/lib/speech.ts`):
     - 封裝 `SpeechSynthesisUtterance`。
     - 鎖定語言為 `ja-JP`。
-    - 設定適中的語速（例如 `0.9`），幫助初學者更好地分辨連讀與清音。
+    - 設定適中的語速（例如 `1.0`），幫助初學者更好地分辨連讀與清音。
 2.  **狀態持久化與控制**:
     - 在 `BasicsPage` 組件中使用 `useState` 以及 `useEffect` 來管理 `autoPlay` 狀態（優先從 `localStorage` 讀取並持久化用戶偏好）。
 3.  **UI 整合**:
