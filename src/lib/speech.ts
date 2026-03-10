@@ -2,9 +2,9 @@
  * Synthesizes Japanese speech using the browser's native Web Speech API.
  *
  * @param text The Japanese text (Kanji, Kana) to speak.
- * @param rate The playback rate, default is 0.9 suitable for learners.
+ * @param rate The playback rate, default is 1.0.
  */
-export function speak(text: string, rate: number = 0.9): void {
+export function speak(text: string, rate: number = 1.0): void {
   // Playback Safety: Verify environment supports SpeechSynthesis and we are on the client-side
   if (typeof window === "undefined" || !window.speechSynthesis) {
     return;

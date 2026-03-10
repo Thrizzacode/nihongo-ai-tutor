@@ -8,7 +8,7 @@
 
 - **WHEN** 一段文字傳遞給 `speak` 函式時
 - **THEN** 系統 SHALL 呼叫 `window.speechSynthesis` 並設定 `lang="ja-JP"`
-- **THEN** 語音應以適合學習者的標準語速 (0.9 - 1.0) 進行播放
+- **THEN** 語音應以標準語速 (1.0) 進行播放
 
 ### Requirement: 播放安全性
 

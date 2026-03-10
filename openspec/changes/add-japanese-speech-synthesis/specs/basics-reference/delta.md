@@ -1,27 +1,28 @@
 ## ADDED Requirements
 
-### Requirement: 互動語音發音 (Interactive Audio Pronunciation)
+### Requirement: 點擊發音 (Click-to-Speak)
 
-「基礎知識」介面 SHALL 允許學習者透過互動，聽取五十音、片假名及基礎詞彙的正確讀音。
+「基礎知識」介面 SHALL 讓學習者能在開啟設定時，直接點擊卡片聽取發音。
 
-#### Scenario: 卡片翻轉自動播放 (Card Flip with Auto-Play Enabled)
+#### Scenario: 點擊播放 (Playback on Click)
 
-- **WHEN** 使用者點擊/觸摸未揭曉的背景卡片以查看答案時
-- **AND** 「自動播放發音」設定為 ENABLED 狀態時
-- **THEN** 系統 SHALL 呼叫 `speech-utility` 朗讀該卡片的日文假名 (Kana)
-- **AND** 語音語速 SHALL 預設為適合學習者的速度 (0.9)
+- **WHEN** 使用者點擊/觸摸任何 `KanaCard` 或 `BasicsCard` 的主體時
+- **AND** 「播放發音」設定為 ENABLED 狀態時
+- **THEN** 系統 SHALL 呼叫 `speech-utility` 播放對應項目的日語發音
 
-#### Scenario: 手動觸發播放 (Manual Playback Request)
+#### Scenario: 喇叭圖示可見性 (Speaker Icon Visibility)
 
-- **WHEN** 使用者點擊/觸摸任何已揭曉卡片上的「喇叭」圖標時
-- **THEN** 無論「自動播放」設定為何，系統 SHALL 呼叫 `speech-utility` 並播放對應音訊
+- **WHEN** 「播放發音」設定為 ENABLED 狀態時
+- **THEN** 每張卡片應顯示「喇叭」供使用者手動觸發播放
+- **WHEN** 「播放發音」設定為 DISABLED 狀態時
+- **THEN** 系統 SHALL 隱藏所有卡片上的「喇叭」圖示
 
-### Requirement: 播放控制 (Synthesis Control)
+### Requirement: 播控設定持久化 (Settings Persistence)
 
-應用程式 SHALL 提供使用者可見的操作控件，用於切換是否自動播放語音。
+應用程式 SHALL 提供使用者可見的操作控件，並持久化該項設定。
 
-#### Scenario: 切換自動播放設定 (Toggle Auto-Play Setting)
+#### Scenario: 切換設定 (Toggle Settings)
 
-- **WHEN** 使用者變更工具欄中「自動播放發音」CheckBox 的值時
-- **THEN** 應用程式 SHALL 持久化此設定（例如存入 `localStorage`）
-- **AND** 後續的卡片點擊應立即遵循新的設定值
+- **WHEN** 使用者變更工具欄中「播放發音」CheckBox 的值時
+- **THEN** 應用程式 SHALL 持久化此設定（建議存入 `localStorage`）
+- **AND** 卡片的互動行為與 UI 應立即反映此設定的變更

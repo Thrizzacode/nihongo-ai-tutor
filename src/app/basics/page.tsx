@@ -31,19 +31,33 @@ export default function BasicsPage() {
   const [showRomaji, setShowRomaji] = useState(true);
   const [useKatakana, setUseKatakana] = useState(false);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [playbackRate, setPlaybackRate] = useState(1.0);
 
   const containerRef = useFadeIn();
 
   useEffect(() => {
-    const saved = localStorage.getItem("basics-autoplay");
-    if (saved !== null) {
-      setAutoPlay(saved === "true");
+    const savedAutoPlay = localStorage.getItem("basics-autoplay");
+    if (savedAutoPlay !== null) {
+      setAutoPlay(savedAutoPlay === "true");
+    }
+
+    const savedRate = localStorage.getItem("basics-speech-rate");
+    if (savedRate !== null) {
+      const rate = parseFloat(savedRate);
+      if (!isNaN(rate)) {
+        setPlaybackRate(rate);
+      }
     }
   }, []);
 
   const handleAutoPlayChange = (checked: boolean) => {
     setAutoPlay(checked);
     localStorage.setItem("basics-autoplay", String(checked));
+  };
+
+  const handleRateChange = (rate: number) => {
+    setPlaybackRate(rate);
+    localStorage.setItem("basics-speech-rate", String(rate));
   };
 
   const CATEGORIES = [
@@ -135,9 +149,28 @@ export default function BasicsPage() {
                   className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
                 />
                 <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                  自動播放發音
+                  播放發音
                 </span>
               </label>
+
+              {/* Speech Rate Slider */}
+              {autoPlay && (
+                <div className="flex items-center gap-3 bg-sakura-light/30 px-3 py-1.5 rounded-lg border border-sakura-light/50">
+                  <span className="text-xs font-bold text-primary whitespace-nowrap">語速</span>
+                  <input
+                    type="range"
+                    min="0.5"
+                    max="2.0"
+                    step="0.1"
+                    value={playbackRate}
+                    onChange={(e) => handleRateChange(parseFloat(e.target.value))}
+                    className="w-24 md:w-32 h-1.5 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <span className="text-xs font-mono font-bold text-primary w-8">
+                    {playbackRate.toFixed(1)}x
+                  </span>
+                </div>
+              )}
             </div>
             <div className="text-xs text-text-muted italic hidden md:block">
               * 關閉「顯示假名」可作為記憶檢核模式
@@ -152,6 +185,7 @@ export default function BasicsPage() {
                 showRomaji={showRomaji}
                 useKatakana={useKatakana}
                 autoPlay={autoPlay}
+                playbackRate={playbackRate}
               />
             )}
             {activeCategory !== "kana" && (
@@ -160,6 +194,7 @@ export default function BasicsPage() {
                 showKana={showKana}
                 showRomaji={showRomaji}
                 autoPlay={autoPlay}
+                playbackRate={playbackRate}
               />
             )}
           </div>
@@ -178,11 +213,13 @@ function BasicsGridView({
   showKana,
   showRomaji,
   autoPlay,
+  playbackRate,
 }: {
   category: Category;
   showKana: boolean;
   showRomaji: boolean;
   autoPlay: boolean;
+  playbackRate: number;
 }) {
   const getData = () => {
     switch (category) {
@@ -238,6 +275,7 @@ function BasicsGridView({
                   showKana={showKana}
                   showRomaji={showRomaji}
                   autoPlay={autoPlay}
+                  playbackRate={playbackRate}
                 />
               ))}
             </div>
@@ -256,6 +294,7 @@ function BasicsGridView({
           showKana={showKana}
           showRomaji={showRomaji}
           autoPlay={autoPlay}
+          playbackRate={playbackRate}
         />
       ))}
     </div>
@@ -267,19 +306,21 @@ function BasicsCard({
   showKana,
   showRomaji,
   autoPlay,
+  playbackRate,
 }: {
   item: { kanji: string; kana: string; romaji: string; meaning: string; special?: boolean };
   showKana: boolean;
   showRomaji: boolean;
   autoPlay: boolean;
+  playbackRate: number;
 }) {
   const [tempShow, setTempShow] = useState(false);
 
   const handleClick = () => {
+    if (autoPlay) {
+      speak(item.kana, playbackRate);
+    }
     if (!showKana) {
-      if (!tempShow && autoPlay) {
-        speak(item.kana);
-      }
       setTempShow(!tempShow);
     }
   };
@@ -304,10 +345,10 @@ function BasicsCard({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              speak(item.kana);
+              speak(item.kana, playbackRate);
             }}
             className={`p-1 -mr-1 rounded-full transition-colors ${
-              showKana || tempShow
+              autoPlay && (showKana || tempShow)
                 ? "text-text-muted hover:text-primary hover:bg-primary/10"
                 : "opacity-0 invisible"
             }`}
@@ -339,7 +380,7 @@ function BasicsCard({
       {!showKana && !tempShow && (
         <div className="absolute inset-0 flex items-center justify-center bg-transparent">
           <span className="text-primary/40 font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-            點擊翻開
+            點擊查看
           </span>
         </div>
       )}
@@ -352,11 +393,13 @@ function KanaChart({
   showRomaji,
   useKatakana,
   autoPlay,
+  playbackRate,
 }: {
   showKana: boolean;
   showRomaji: boolean;
   useKatakana: boolean;
   autoPlay: boolean;
+  playbackRate: number;
 }) {
   return (
     <div className="space-y-12">
@@ -379,6 +422,7 @@ function KanaChart({
                       showRomaji={showRomaji}
                       useKatakana={useKatakana}
                       autoPlay={autoPlay}
+                      playbackRate={playbackRate}
                     />
                   ) : (
                     <div className="aspect-square bg-transparent" />
@@ -410,6 +454,7 @@ function KanaChart({
                       showRomaji={showRomaji}
                       useKatakana={useKatakana}
                       autoPlay={autoPlay}
+                      playbackRate={playbackRate}
                     />
                   ) : (
                     <div className="aspect-square bg-transparent" />
@@ -441,6 +486,7 @@ function KanaChart({
                       showRomaji={showRomaji}
                       useKatakana={useKatakana}
                       autoPlay={autoPlay}
+                      playbackRate={playbackRate}
                     />
                   ) : (
                     <div className="aspect-square bg-transparent" />
@@ -461,21 +507,23 @@ function KanaCard({
   showRomaji,
   useKatakana,
   autoPlay,
+  playbackRate,
 }: {
   item: KanaItem;
   showKana: boolean;
   showRomaji: boolean;
   useKatakana: boolean;
   autoPlay: boolean;
+  playbackRate: number;
 }) {
   const [tempShow, setTempShow] = useState(false);
   const reading = useKatakana ? item.katakana : item.hiragana;
 
   const handleClick = () => {
+    if (autoPlay) {
+      speak(reading, playbackRate);
+    }
     if (!showKana) {
-      if (!tempShow && autoPlay) {
-        speak(reading);
-      }
       setTempShow(!tempShow);
     }
   };
@@ -492,10 +540,10 @@ function KanaCard({
       <button
         onClick={(e) => {
           e.stopPropagation();
-          speak(reading);
+          speak(reading, playbackRate);
         }}
-        className={`absolute top-1 right-1 p-1.5 rounded-full transition-colors z-10 ${
-          showKana || tempShow
+        className={`absolute top-0 right-0 md:top-3 md:right-3 p-1.5 rounded-full transition-colors z-10 ${
+          autoPlay && (showKana || tempShow)
             ? "text-text-muted hover:text-primary hover:bg-primary/10"
             : "opacity-0 invisible"
         }`}
