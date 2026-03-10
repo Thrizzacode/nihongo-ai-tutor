@@ -43,8 +43,13 @@ export default function BasicsPage() {
 
     const savedRate = localStorage.getItem("basics-speech-rate");
     if (savedRate !== null) {
-      const rate = parseFloat(savedRate);
+      let rate = parseFloat(savedRate);
       if (!isNaN(rate)) {
+        // Reset to 1.0 if the saved rate exceeds the new limit of 1.2
+        if (rate > 1.2) {
+          rate = 1.0;
+          localStorage.setItem("basics-speech-rate", "1.0");
+        }
         setPlaybackRate(rate);
       }
     }
@@ -160,7 +165,7 @@ export default function BasicsPage() {
                   <input
                     type="range"
                     min="0.5"
-                    max="2.0"
+                    max="1.2"
                     step="0.1"
                     value={playbackRate}
                     onChange={(e) => handleRateChange(parseFloat(e.target.value))}
